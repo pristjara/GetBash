@@ -13,5 +13,7 @@ namespace GetBash
         public string rating { get; set; }
 
         public string date_added { get; set; }
+
+        public string ID { get; set; }
     }
 }

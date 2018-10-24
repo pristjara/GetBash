@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         GlowBrush="{DynamicResource AccentColorBrush}"
                       SizeToContent="Height"
-        Title="Bash: /dev/random " Height="250" Width="520" MaxHeight="800"
+        Title="Bash: /dev/random " Height="250" Width="590" MaxHeight="800"
                       ResizeMode="CanMinimize" Icon="favicon.ico">
         
     <Grid>
@@ -24,6 +24,7 @@
                 <ColumnDefinition Width="75"/>
                 <ColumnDefinition Width="75"/>
                 <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="80"/>
@@ -32,10 +33,15 @@
             <Label Name="lblCounter" Grid.Column="0" Margin="5">lblCounter</Label>
             <Label Name="lblRating" Grid.Column="1" Margin="5" FontWeight="Bold">lblRating</Label>
             <Label Name="lblData" Grid.Column="2" Margin="5">lblData</Label>
+            <TextBlock Grid.Column="3" Margin="5" Name="tb_content">
+                <Hyperlink Name="hl_link" RequestNavigate="hl_link_RequestNavigate">
+                    <Label Content="lblLink" Name="lblLink" />
+                </Hyperlink>
+            </TextBlock> 
 
-            <Button Name="btnPrev" Grid.Column="3" Grid.Row="0" Margin="5" Content="Previous" Click="btnPrev_Click" />
-            <Button Name="btnShare" Grid.Column="4" Grid.Row="0" Margin="5" Click="btnShare_Click">Share</Button>
-            <Button Name="btnNext" Grid.Column="5" Grid.Row="0" Margin="5" Click="btnNext_Click" Content="Next" />
+            <Button Name="btnPrev" Grid.Column="4" Grid.Row="0" Margin="5" Content="Previous" Click="btnPrev_Click" />
+            <Button Name="btnShare" Grid.Column="5" Grid.Row="0" Margin="5" Click="btnShare_Click">Share</Button>
+            <Button Name="btnNext" Grid.Column="6" Grid.Row="0" Margin="5" Click="btnNext_Click" Content="Next" />
         </Grid>
 
 

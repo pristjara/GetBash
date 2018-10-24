@@ -61,9 +61,12 @@ namespace GetBash
             try
             {
                 btnNext.Content = "LOAD";
-                lblCounter.Content = "";
-                lblData.Content = "";
-                lblRating.Content = "";
+                lblCounter.Visibility = Visibility.Hidden;
+                lblData.Visibility = Visibility.Hidden;
+                lblRating.Visibility = Visibility.Hidden;
+                lblLink.Visibility = Visibility.Hidden;
+                tb_content.Visibility = Visibility.Hidden;
+                lblLink.Foreground = Brushes.Red;
 
                 webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
                 webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -129,9 +132,11 @@ namespace GetBash
                 div_actions = (HtmlDivision)div.getFirstByXPath("./div[@class='actions']");
                 HtmlSpan rating = (HtmlSpan)div_actions.getFirstByXPath("./span[@class='rating-o']");
                 HtmlSpan date = (HtmlSpan)div_actions.getFirstByXPath("./span[@class='date']");
+                HtmlAnchor id = (HtmlAnchor)div_actions.getFirstByXPath("./a[@class='id']");
 
                 quote.rating = rating.asText();
                 quote.date_added = date.asText();
+                quote.ID = id.asText().Replace("#", "");
 
                 div_text = (HtmlDivision)div.getFirstByXPath("./div[@class='text']");
 
@@ -159,6 +164,16 @@ namespace GetBash
 
                 ShowQuote(counter);
             }
+
+            try
+            {
+                lblCounter.Visibility = Visibility.Visible;
+                lblData.Visibility = Visibility.Visible;
+                lblRating.Visibility = Visibility.Visible;
+                lblLink.Visibility = Visibility.Visible;
+                tb_content.Visibility = Visibility.Visible;
+            }
+            catch { }
         }
 
         private static void DoEvents()
@@ -206,6 +221,7 @@ namespace GetBash
 
         private void ShowQuote(int index)
         {
+
             Log(list_quotes[index].quote_text);
 
             lblData.Content = list_quotes[index].date_added;
@@ -237,6 +253,8 @@ namespace GetBash
             }
             lblRating.Content = list_quotes[index].rating;
             
+            lblLink.Content = list_quotes[index].ID;
+            hl_link.NavigateUri = new Uri("https://bash.im/quote/" + list_quotes[index].ID);
 
             lblCounter.Content = counter+1 + " / " + list_quotes.Count;
         }
@@ -308,6 +326,11 @@ namespace GetBash
                 Log("Not enough mana!" + "\r\n\r\n" + ex.Message);
             }
         }
-        
+
+        private void hl_link_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            //string url = "https://bash.im/quote/" + ;
+            Process.Start("chrome.exe", e.Uri.AbsoluteUri + " --incognito");
+        }
     }
 }
